@@ -11,7 +11,7 @@ rFunction <- function(data, minspeed=NULL)
   {
     logger.info(paste0("You have selected to segment for positions/tracks with speed > ",minspeed,"m/s"))
     
-    data.split <- split(data)
+    data.split <- move::split(data)
     segm <- foreach(datai = data.split) %do% {
       print(namesIndiv(datai))
       if (!is.null(minspeed)) datai[speed(datai)>minspeed,] else datai
