@@ -18,8 +18,12 @@ rFunction <- function(data, minspeed=NULL)
     }
     names (segm) <- names(data.split)
     
-    segm_nozero <- segm[unlist(lapply(segm, length) > 1)] #remove list elements of length 1 or 0
-    result <- moveStack(segm_nozero)
+    segm_nozero <- segm[unlist(lapply(segm, length) > 0)] #remove list elements of length 0
+    if (length(segm_nozero)==0) 
+    {
+      logger.info("Your output file contains no positions. Return NULL.")
+      result <- NULL
+    } else result <- moveStack(segm_nozero) #this gives timestamp error if empty list
   }
   result
 }
