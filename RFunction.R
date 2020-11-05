@@ -1,5 +1,6 @@
 library('move')
 library('foreach')
+library('ggplot2')
 
 rFunction <- function(data, minspeed=NULL)
 {
@@ -25,5 +26,23 @@ rFunction <- function(data, minspeed=NULL)
       result <- NULL
     } else result <- moveStack(segm_nozero) #this gives timestamp error if empty list
   }
+  
+  #Artefakt, plot speed histogram with cut-off
+  hist.tab <- foreach(datai = data.split, .combine=rbind) %do% {
+    data.frame("speed"=speed(datai),"id"=namesIndiv(datai))
+  }
+
+  speed.plot <- ggplot(hist.tab, aes(x = speed, fill = id)) +
+    geom_histogram(position = "identity", alpha = 0.2, bins = 100) +
+    geom_vline(xintercept = minspeed,lty=2) +
+    ggtitle("Histogram of the (between-location) speeds with selected cutoff")
+  
+  pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.png"))
+  #pdf("speed_artefakt.pdf")
+  print(speed.plot)
+  dev.off() 
+  
   result
 }
+
+

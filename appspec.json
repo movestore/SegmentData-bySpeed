@@ -15,7 +15,11 @@
       },
       {
         "name": "foreach"
+      },
+      {
+        "name": "ggplot2"
       }
 	]
-  }
+  },
+  "createsArtifacts": true
 }
