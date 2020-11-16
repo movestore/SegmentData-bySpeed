@@ -37,7 +37,7 @@ rFunction <- function(data, minspeed=NULL)
     geom_vline(xintercept = minspeed,lty=2) +
     ggtitle("Histogram of the (between-location) speeds with selected cutoff")
   
-  pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.png"))
+  pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.pdf"))
   #pdf("speed_artefakt.pdf")
   print(speed.plot)
   dev.off() 

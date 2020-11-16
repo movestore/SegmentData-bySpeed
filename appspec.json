@@ -5,7 +5,7 @@
       "name": "Minimim movement speed defining migration",
       "description": "Insert minimum speed (in m/s)",
       "defaultValue": null,
-      "type": "INTEGER"
+      "type": "DOUBLE"
     }
   ],
   "dependencies": {
@@ -21,5 +21,30 @@
       }
 	]
   },
-  "createsArtifacts": true
+  "createsArtifacts": true,
+  "license": {
+    "key": "MIT"
+  },
+  "language": "eng",
+  "keywords": [
+    "segmentation",
+    "speed",
+    "filter",
+    "histogram"
+  ],
+  "people": [
+    {
+      "firstName": "Andrea",
+      "middleInitials": null,
+      "lastName": "Kölzsch",
+      "email": "akoelzsch@ab.mpg.de",
+      "roles": ["author", "creator"],
+      "orcid": "0000-0003-0193-1563",
+      "affiliation": "Max-Planck-Institute of Animal Behavior",
+      "affiliationRor": "https://ror.org/026stee22"
+    }
+  ],
+  "documentation" : {
+    "url": "https://github.com/movestore/SegmentData-bySpeed/blob/master/README.md"
+  }
 }
