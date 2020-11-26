@@ -61,8 +61,8 @@ rFunction <- function(data, thrspeed=NULL, direc="above")
     geom_vline(xintercept = thrspeed,lty=2) +
     ggtitle("Histogram of the (between-location) speeds with selected threshold")
   
-  #pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.pdf"))
-  pdf("speed_artefakt.pdf")
+  pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.pdf"))
+  #pdf("speed_artefakt.pdf")
   print(speed.plot)
   dev.off() 
   

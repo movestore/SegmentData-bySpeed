@@ -19,13 +19,13 @@ moveStack in Movebank format
 `speed_artefact.pdf`: multi-layer histogramme of the distributions of speed for each animal in the input data set. A cut-off horizontal line represents your provided threshold speed.
 
 ### Parameters 
-`thrspeed`: Threshold speed that the selected segments (positions from and to which the segment goes) need to exceed or fall below for selection (as e.g. migration/resting). Unit: m/s. Example: 1.
+`thrspeed`: Threshold speed that the selected segments (positions from and to which the segment goes) need to exceed or fall below for selection (as e.g. migration/resting). Unit: m/s. Example: 1. Default is NULL.
 
-`direc`: Radiobuttons to select direction of the threshold selection. If "above" is selected then only locations with speeds above the threshold speed are selected, if "below" is selected than locations with speeds below the threshold are selected. The default here is "above".
+`direc`: Radiobuttons to select direction of the threshold selection. If "above" is selected then only locations with speeds above the threshold speed are selected, if "below" is selected than locations with speeds below the threshold are selected. The default here is NULL.
 
 ### Null or error handling:
-**Parameter `thrspeed`:** If no threshol speed is defined the complete data set will be returned.
+**Parameter `thrspeed`:** If no threshold speed is defined (NULL) the complete data set will be returned with a warning.
 
-**Parameter `direc`:** If by some conicidence the user manages to provide NULL or a non-defined direction, the full data set is returned with a warning. However, the default is set to "above".
+**Parameter `direc`:** If none of the provided direction options are selected (NULL), the full data set is returned with a warning.
 
-**Data:** If there are no locations of the required minimum speed in the data set the output data will be emplty (NULL), likely leading to an error.
+**Data:** If there are no locations of the required minimum speed in the data set the output data will be empty (NULL), likely leading to an error.
