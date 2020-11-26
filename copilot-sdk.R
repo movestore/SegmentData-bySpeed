@@ -2,7 +2,7 @@ library(jsonlite)
 source("logger.R")
 source("RFunction.R")
 
-inputFileName = "input_lowres_geese_74X.rds" #important to set to NULL for movebank-download
+inputFileName = "input_geese_200K_locs.rds" #important to set to NULL for movebank-download
 outputFileName = "output.rds"
 
 args <- list()
@@ -16,7 +16,8 @@ args <- list()
 #    args[["username"]] = "any-username"
 #    args[["password"]] = "any-password"
 
-args[["minspeed"]] = 1
+args[["thrspeed"]] = 1
+args[["direc"]] = "below"
 
 
 

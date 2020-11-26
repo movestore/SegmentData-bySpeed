@@ -1,11 +1,28 @@
 {
   "settings": [
     {
-      "id": "minspeed",
-      "name": "Minimim movement speed defining migration",
-      "description": "Insert minimum speed (in m/s)",
+      "id": "thrspeed",
+      "name": "Threshold movement speed for segmentation",
+      "description": "Insert speed (in m/s)",
       "defaultValue": null,
       "type": "DOUBLE"
+    },
+	{
+      "id": "direc",
+      "name": "Direction of positions selected",
+      "description": "Select if you want to select locations with speed above or below the threshold",
+      "defaultValue": null,
+      "type": "RADIOBUTTONS",
+      "options": [
+        {
+          "value": "above",
+          "displayText": "select above the threshold"
+        },
+		        {
+          "value": "below",
+          "displayText": "select below the threshold"
+        }
+      ]
     }
   ],
   "dependencies": {
