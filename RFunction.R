@@ -52,7 +52,9 @@ rFunction <- function(data, thrspeed=NULL, direc="above")
   }
   
   #Artefakt, plot speed histogram with cut-off
-  hist.tab <- foreach(datai = data.split, .combine=rbind) %do% {
+  data.split.nn <- data.split[unlist(lapply(data.split,length)>1)] # take out individuals with only one position, else speed error
+  
+  hist.tab <- foreach(datai = data.split.nn, .combine=rbind) %do% {
     data.frame("speed"=speed(datai),"id"=namesIndiv(datai))
   }
 
