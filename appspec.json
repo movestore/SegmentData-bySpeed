@@ -1,6 +1,23 @@
 {
   "settings": [
     {
+      "id": "speedoption",
+      "name": "Type of speed",
+      "description": "Select if you want to use (GPS) ground speed or calculated between-location speed for your segmentation/filter. Note that start and end locations of each step fulfilling the condition are selected in the latter case.",
+      "defaultValue": "step",
+      "type": "RADIOBUTTONS",
+      "options": [
+        {
+          "value": "step",
+          "displayText": "between-location speed"
+        },
+		{
+          "value": "ground",
+          "displayText": "ground speed"
+        }
+      ]
+    },
+	{
       "id": "thrspeed",
       "name": "Threshold movement speed for segmentation",
       "description": "Insert speed (in m/s)",
