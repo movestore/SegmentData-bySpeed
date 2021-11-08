@@ -2,8 +2,14 @@ library('move')
 library('foreach')
 library('ggplot2')
 
-rFunction <- function(data, thrspeed=NULL, direc="above")
+rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
 {
+  if (speedoption=="ground") 
+    {
+    logger.info("You have selected to use ground.speed for you data selection. For locations where ground.speed is NA, distance based speed is estimated (averaged speed from previous locaiton and speed to next location).")
+    names(data) <- make.names(names(data),allow_=FALSE)
+    } else logger.info("You have selected to use distance based speed (distance to previous or next location/duration from previous or next location) for your data selection. Note that ground speed at the locations can differ, especially if data resolution is low.")
+  
   if (is.null(thrspeed)) 
   {
     logger.info("You have not selected a threshold speed. Please change. Here returning full data set.")
@@ -17,9 +23,36 @@ rFunction <- function(data, thrspeed=NULL, direc="above")
     if (direc=="above")
     {
       segm <- foreach(datai = data.split) %do% {
-        print(namesIndiv(datai))
-        ix <- which(speed(datai)>thrspeed)
-        datai[sort(unique(c(ix,ix+1))),]
+        logger.info(namesIndiv(datai))
+        if (speedoption=="step")
+        {
+          ix <- which(speed(datai)>thrspeed)
+          dataix <- datai[sort(unique(c(ix,ix+1))),]
+        } else
+        {
+          gsi <- datai$ground.speed
+          if (any(is.na(gsi)))
+          {
+            ixna <- which(is.na(gsi))
+            if (1 %in% ixna) 
+              {
+              gsi[1] <- speed(datai)[1]
+              ixna <- ixna[-1]
+              }
+            leni <- length(datai)
+            if (leni %in% ixna)
+              {
+              gsi[leni] <- speed(datai)[leni-1]
+              ixna <- ixna[-length(ixna)]
+              }
+            if (length(ixna)>0)
+            {
+              gsi[ixna] <- (speed(datai)[ixna-1]+speed(datai)[ixna])/2 #average speed of before and after movement
+            }
+          }
+          dataix <- datai[which(gsi>thrspeed)]
+        }
+      return(dataix)
       }
       names (segm) <- names(data.split)
       
@@ -32,9 +65,36 @@ rFunction <- function(data, thrspeed=NULL, direc="above")
     } else if (direc=="below")
     {
       segm <- foreach(datai = data.split) %do% {
-        print(namesIndiv(datai))
-        ix <- which(speed(datai)<=thrspeed)
-        datai[sort(unique(c(ix,ix+1))),]
+        logger.info(namesIndiv(datai))
+        if (speedoption=="step")
+        {
+          ix <- which(speed(datai)<=thrspeed)
+          dataix <- datai[sort(unique(c(ix,ix+1))),]
+        } else
+        {
+          gsi <- datai$ground.speed
+          if (any(is.na(gsi)))
+          {
+            ixna <- which(is.na(gsi))
+            if (1 %in% ixna) 
+            {
+              gsi[1] <- speed(datai)[1]
+              ixna <- ixna[-1]
+            }
+            leni <- length(datai)
+            if (leni %in% ixna)
+            {
+              gsi[leni] <- speed(datai)[leni-1]
+              ixna <- ixna[-length(ixna)]
+            }
+            if (length(ixna)>0)
+            {
+              gsi[ixna] <- (speed(datai)[ixna-1]+speed(datai)[ixna])/2 #average speed of before and after movement
+            }
+          }
+          dataix <- datai[which(gsi<=thrspeed)]
+        }
+        return(dataix)
       }
       names (segm) <- names(data.split)
       
@@ -54,14 +114,22 @@ rFunction <- function(data, thrspeed=NULL, direc="above")
   #Artefakt, plot speed histogram with cut-off
   data.split.nn <- data.split[unlist(lapply(data.split,length)>1)] # take out individuals with only one position, else speed error
   
-  hist.tab <- foreach(datai = data.split.nn, .combine=rbind) %do% {
+  if (speedoption=="step") 
+    {
+    hist.tab <- foreach(datai = data.split.nn, .combine=rbind) %do% {
     data.frame("speed"=speed(datai),"id"=namesIndiv(datai))
-  }
+      }
+    } else
+    {
+      hist.tab <- foreach(datai = data.split.nn, .combine=rbind) %do% {
+        data.frame("speed"=datai$ground.speed,"id"=namesIndiv(datai))
+      }
+    }
 
   speed.plot <- ggplot(hist.tab, aes(x = speed, fill = id)) +
     geom_histogram(position = "identity", alpha = 0.2, bins = 100) +
     geom_vline(xintercept = thrspeed,lty=2) +
-    ggtitle("Histogram of the (between-location) speeds with selected threshold")
+    ggtitle("Histogram of the speeds with selected threshold")
   
   pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.pdf"))
   #pdf("speed_artefakt.pdf")
