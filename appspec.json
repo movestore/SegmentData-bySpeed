@@ -52,6 +52,9 @@
       },
       {
         "name": "ggplot2"
+      },
+	  {
+        "name": "geosphere"
       }
 	]
   },
