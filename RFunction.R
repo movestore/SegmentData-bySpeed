@@ -6,11 +6,11 @@ library('geosphere')
 rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
 {
   
-  speedx <- function(x) #input move object
-  {
-    N <- length(x)
-    distVincentyEllipsoid(coordinates(x))/as.numeric(difftime(timestamps(x)[-1],timestamps(x)[-N],units="secs"))
-  }
+  #speedx <- function(x) #input move object
+  #{
+  #  N <- length(x)
+  #  distVincentyEllipsoid(coordinates(x))/as.numeric(difftime(timestamps(x)[-1],timestamps(x)[-N],units="secs"))
+  #}
   
   if (speedoption=="ground") 
     {
@@ -34,7 +34,7 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
         logger.info(namesIndiv(datai))
         if (speedoption=="step")
         {
-          ix <- which(speedx(datai)>thrspeed)
+          ix <- which(speed(datai)>thrspeed)
           dataix <- datai[sort(unique(c(ix,ix+1))),]
         } else
         {
@@ -44,18 +44,18 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
             ixna <- which(is.na(gsi))
             if (1 %in% ixna) 
               {
-              gsi[1] <- speedx(datai)[1]
+              gsi[1] <- speed(datai)[1]
               ixna <- ixna[-1]
               }
             leni <- length(datai)
             if (leni %in% ixna)
               {
-              gsi[leni] <- speedx(datai)[leni-1]
+              gsi[leni] <- speed(datai)[leni-1]
               ixna <- ixna[-length(ixna)]
               }
             if (length(ixna)>0)
             {
-              gsi[ixna] <- (speedx(datai)[ixna-1]+speedx(datai)[ixna])/2 #average speed of before and after movement
+              gsi[ixna] <- (speed(datai)[ixna-1]+speed(datai)[ixna])/2 #average speed of before and after movement
             }
           }
           dataix <- datai[which(gsi>thrspeed)]
@@ -76,7 +76,7 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
         logger.info(namesIndiv(datai))
         if (speedoption=="step")
         {
-          ix <- which(speedx(datai)<=thrspeed)
+          ix <- which(speed(datai)<=thrspeed)
           dataix <- datai[sort(unique(c(ix,ix+1))),]
         } else
         {
@@ -86,18 +86,18 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
             ixna <- which(is.na(gsi))
             if (1 %in% ixna) 
             {
-              gsi[1] <- speedx(datai)[1]
+              gsi[1] <- speed(datai)[1]
               ixna <- ixna[-1]
             }
             leni <- length(datai)
             if (leni %in% ixna)
             {
-              gsi[leni] <- speedx(datai)[leni-1]
+              gsi[leni] <- speed(datai)[leni-1]
               ixna <- ixna[-length(ixna)]
             }
             if (length(ixna)>0)
             {
-              gsi[ixna] <- (speedx(datai)[ixna-1]+speedx(datai)[ixna])/2 #average speed of before and after movement
+              gsi[ixna] <- (speed(datai)[ixna-1]+speed(datai)[ixna])/2 #average speed of before and after movement
             }
           }
           dataix <- datai[which(gsi<=thrspeed)]
@@ -125,7 +125,7 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
   if (speedoption=="step") 
     {
     hist.tab <- foreach(datai = data.split.nn, .combine=rbind) %do% {
-    data.frame("speed"=speedx(datai),"id"=namesIndiv(datai))
+    data.frame("speed"=speed(datai),"id"=namesIndiv(datai))
       }
     } else
     {
