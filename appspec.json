@@ -3,7 +3,7 @@
     {
       "id": "speedoption",
       "name": "Type of speed",
-      "description": "Select if you want to use (GPS) ground speed or calculated between-location speed for your segmentation/filter. Note that start and end locations of each step fulfilling the condition are selected in the latter case.",
+      "description": "Select whether you want to use the 'ground-speed' estimate from the source data (typically representing instantaneous ground speed estimated by the GPS) or the speed calculated between consecutive locations. Only select 'ground speed' if you know this is present throughout the data you are evaluating. Note that start and end locations of each step fulfilling the condition are selected if 'between-location speed' is selected.",
       "defaultValue": "step",
       "type": "RADIOBUTTONS",
       "options": [
