@@ -15,7 +15,11 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
   if (speedoption=="ground") 
     {
     names(data) <- make.names(names(data),allow_=FALSE)
-    if (any(names(data) == "ground.speed")) logger.info("You have selected to use ground.speed for you data selection. This variable existis in your data. However, in case there are locations where ground.speed is NA, distance based speed is estimated (averaged speed from previous locaiton and speed to next location) for the involved steps.") else logger.info("You have selected to use ground.speed for you data selection. However, this variable does not existis in your input data set. Therefore, the calculations are performed using distance based speed estimates (averaged speed from previous location and speed to next location).")
+    if (any(names(data) == "ground.speed")) logger.info("You have selected to use ground.speed for you data selection. This variable existis in your data. However, in case there are locations where ground.speed is NA, distance based speed is estimated (averaged speed from previous locaiton and speed to next location) for the involved steps.") else 
+      {
+      logger.info("You have selected to use ground.speed for you data selection. However, this variable does not existis in your input data set. Therefore, the calculations are performed using distance based speed estimates (averaged speed from previous location and speed to next location).")
+      speedoption <- "step"  
+      }
     
     } else logger.info("You have selected to use distance based speed (distance to previous or next location/duration from previous or next location) for your data selection. Note that ground speed at the locations can differ, especially if data resolution is low.")
   
