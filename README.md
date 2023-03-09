@@ -1,4 +1,4 @@
-# Segment Data by Speed
+# Filter by Speed
 MoveApps
 
 Github repository: *github.com/movestore/SegmentData-bySpeed*
@@ -20,18 +20,18 @@ moveStack in Movebank format
 ### Artefacts
 `speed_artefact.pdf`: multi-layer histogramme of the distributions of speed for each animal in the input data set. A cut-off horizontal line represents your provided threshold speed.
 
-### Parameters 
-`speedoption`: Selection of (GPS) ground speed or between-location speed for segmentation/filtering. Default is between-location speed (`step`).
+### Settings
+**Type of speed (`speedoption`):** Selection of (GPS) ground speed or between-location speed for segmentation/filtering. Default is between-location speed (`step`).
 
-`thrspeed`: Threshold speed that the selected segments/locations need to exceed or fall below for selection (as e.g. migration/resting). Unit: m/s. Example: 1. Default is NULL.
+**Threshold movement speed for segmentation (`thrspeed`):** Threshold speed that the selected segments/locations need to exceed or fall below for selection (as e.g. migration/resting). Unit: m/s. Example: 1. Default is NULL.
 
-`direc`: Radiobuttons to select direction of the threshold selection. If "above" is selected then only locations with speeds above the threshold speed are selected, if "below" is selected than locations with speeds below the threshold are selected. The default here is NULL.
+**Direction of positions selected (`direc`):** Radiobuttons to select direction of the threshold selection. If "above" is selected then only locations with speeds above the threshold speed are selected, if "below" is selected than locations with speeds below the threshold are selected. The default here is NULL.
 
 ### Null or error handling:
-**Parameter `speedoption`:** Only two option are possible here with a fixed default, no NULL or errors expected.
+**Setting `speedoption`:** Only two option are possible here with a fixed default, no NULL or errors expected.
 
-**Parameter `thrspeed`:** If no threshold speed is defined (NULL) the complete data set will be returned with a warning.
+**Setting `thrspeed`:** If no threshold speed is defined (NULL) the complete data set will be returned with a warning.
 
-**Parameter `direc`:** If none of the provided direction options are selected (NULL), the full data set is returned with a warning.
+**Setting `direc`:** If none of the provided direction options are selected (NULL), the full data set is returned with a warning.
 
 **Data:** If there are no locations of the required minimum speed in the data set the output data will be empty (NULL), likely leading to an error.
