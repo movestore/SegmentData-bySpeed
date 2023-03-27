@@ -144,7 +144,7 @@ rFunction <- function(data, speedoption="step", thrspeed=NULL, direc="above")
     speed.plot <- ggplot(hist.tab, aes(x = speed, fill = id)) +
       geom_histogram(position = "identity", alpha = 0.2, bins = 100) +
       geom_vline(xintercept = thrspeed,lty=2) +
-      ggtitle("Histogram of the speeds with selected threshold")
+      ggtitle("Histogram of the speeds with selected threshold (unit m/s)")
     
     pdf(paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"), "speed_artefakt.pdf"))
     #pdf("speed_artefakt.pdf")
