@@ -26,26 +26,31 @@
     },
 	{
       "id": "direc",
-      "name": "Direction of positions selected",
-      "description": "Select if you want to select locations with speed above or below the threshold",
-      "defaultValue": null,
+      "name": "Annotate only or direction of filtering",
+      "description": "Select if you want to annotate all locations with speed_class (above or below the threshold) or filter locations with speed above or below the threshold",
+      "defaultValue": "annotate",
       "type": "RADIOBUTTONS",
       "options": [
+		{
+          "value": "annotate",
+          "displayText": "keep all locations with annotation attribute `speed_class` (high or low)"
+        },
         {
           "value": "above",
-          "displayText": "select above the threshold"
+          "displayText": "select data above the threshold"
         },
 		        {
           "value": "below",
-          "displayText": "select below the threshold"
-        }
+          "displayText": "select data below the threshold"
+        },
+		}
       ]
     }
   ],
   "dependencies": {
     "R": [
       {
-        "name": "move"
+        "name": "move2"
       },
       {
         "name": "foreach"
@@ -67,6 +72,8 @@
     "segmentation",
     "speed",
     "filter",
+	"annotate",
+	"speed_class",
     "histogram"
   ],
   "people": [
