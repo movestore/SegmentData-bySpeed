@@ -4,7 +4,7 @@ MoveApps
 Github repository: *github.com/movestore/SegmentData-bySpeed*
 
 ## Description
-Location data are filtered by a user-defined threshold speed. The speed can be ground speed or between-location calculated speed, both in m/s. Depending on the selection of "above" or "below" threshold, the locations with speeds above or below the threshold are selected. Selecting "above" might indicate "migration" locations, "below" stands for more sedentary or resting locations.
+Location data are filtered or annotated in 'speed_class' by a user-defined threshold speed. The speed can be ground speed or between-location calculated speed, both in m/s. Depending on the selection of "above" or "below" threshold, the locations with speeds above or below the threshold are selected. Selecting "above" might indicate "migration" locations, "below" stands for more sedentary or resting locations. 
 
 ## Documentation
 Depending on the selected speed option (ground speed or between-location speed), this App uses GPS ground speed or calculates for each animal the inter-location speed of each pair of successive locations. If ground speed is not availabe in the input data set or if ground speed is NA (not available) between-location speed is used for all or the respective locations (and a warning is added in the logs of the App). Note that it is necessary that ground speed of the data is provided in the unit m/s, as else the data do not fit together. If you want to filter with other units, have a look at the "Adapt/Filter Unrealistic Values" App.
