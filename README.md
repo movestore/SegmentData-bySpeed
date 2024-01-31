@@ -11,7 +11,7 @@ Depending on the selected speed option (ground speed or between-location speed),
 
 Mean speed of incoming and outgoing movement is calculated. If inter-location speed is requested and the user selected to filter for "above" threshold locations, all locations from and to which the threshold speed is exceeded are selected and returned as output data set. In that case with filtering for "below" threshold locations, all locations from and to which the speed falls below the threshold speed are selected and returned as output data set. For ground speed the actual speeds of each location are used. For locations with ground speed NA (not available), inter-location speed is estimated to the respective location as the arithmetic mean of the incoming and outgoing movement steps of the location.
 
-If selecting "annotate" then all data are returned, with the additional column "speed_class", where entries of "high" indicate speed above the threshold and "low" speed below the threshold.
+If selecting "annotate" then all data are returned, with the additional column "speed_class", where entries of "high" indicate speed above the threshold and "low" speed below the threshold. Note that in the "annotate" case, NA entries for 'ground speed' are not replaced with between-location speed. Also in the pdf histogram, NA ground speeds will not be replaced. In the worst case the histogramme is empty (all ground speed NA) - then select 'between-location speed' for the speed option.
 
 ### Input data
 move2 location object
